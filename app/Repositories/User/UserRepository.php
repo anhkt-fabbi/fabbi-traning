@@ -6,6 +6,7 @@ use App\Enums\ErrorType;
 use App\Models\User;
 use App\Repositories\RepositoryAbstract;
 use Illuminate\Support\Facades\Hash;
+use Mockery\Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 
@@ -41,5 +42,24 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         return [
             'success' => false
         ];
+    }
+
+    public function register($data)
+    {
+        $userData = $data->only(['email', 'full_name', 'name', 'password']);
+        $userData['password'] = bcrypt($userData['password']);
+
+        try {
+            $this->model->create($userData);
+
+            return [
+                'success' => true
+            ];
+        } catch (Exception $exception) {
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
+        }
     }
 }

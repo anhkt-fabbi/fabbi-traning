@@ -8,6 +8,8 @@ servers:
 paths:
   /auth/login:
     $ref: auth/Login.yaml
+  /auth/register:
+    $ref: users/Register.yaml
   /users/change-password:
     $ref: users/ChangePassword.yaml
 components:

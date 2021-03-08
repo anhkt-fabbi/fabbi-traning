@@ -1,0 +1,8 @@
+content:
+  application/json:
+    schema:
+      type: object
+    examples:
+      error:
+        code: 5000
+        message: null

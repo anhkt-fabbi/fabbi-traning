@@ -1,0 +1,44 @@
+post:
+  tags:
+    - auth
+  summary: Login
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: integer
+              format: int64
+              example: example@gmail.com
+            password:
+              type: string
+              example: 12345678
+      required: true
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            data:
+              access_token: 2F0AY0e-g7epwDuxlkW25IYNsSiOETz2KyO5SDB11Ix4RVO21hV38WmpVAC6NF0NQg5ZH3UQg
+              token_type: bearer
+              expires_in: 3600
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            error:
+              code: 401
+              message: null
+              message_code: 4010
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

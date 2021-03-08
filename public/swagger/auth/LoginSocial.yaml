@@ -3,14 +3,12 @@ get:
     - auth
   summary: Login facebook
   parameters:
-    - in: path
+    - in: query
       name: code
-      required: true
       schema:
-        type: array
-        items:
-          type: string
-      explode: true
+        type: string
+      description: import code social callback
+      required: true
   responses:
     200:
       description: successful operation
@@ -21,7 +19,9 @@ get:
           examples:
             data:
               data:
-                url: https://www.facebook.com/v3.3/dialog/oauth?client_id=333163111151388&redirect_uri=https%3A%2F%2Fbfc6ee31b16b.ngrok.io%2Fapi%2Fauth%2Ffacebook%2Fcallback&scope=email&response_type=code
+                access_token: 2F0AY0e-g7epwDuxlkW25IYNsSiOETz2KyO5SDB11Ix4RVO21hV38WmpVAC6NF0NQg5ZH3UQg
+                token_type: bearer
+                expires_in: 3600
               message: null
     500:
       description: Server error

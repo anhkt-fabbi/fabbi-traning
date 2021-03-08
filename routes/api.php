@@ -22,6 +22,8 @@ Route::group([
 ], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [UserController::class, 'register']);
+    Route::get('{social}/login', [AuthController::class, 'redirectSocial']);
+    Route::get('{social}/callback', [AuthController::class, 'callbackSocial']);
 });
 
 Route::group(['middleware' => 'auth:api'], function () {

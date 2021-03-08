@@ -1,0 +1,28 @@
+get:
+  tags:
+    - auth
+  summary: Login facebook
+  parameters:
+    - in: path
+      name: code
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+      explode: true
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            data:
+              data:
+                url: https://www.facebook.com/v3.3/dialog/oauth?client_id=333163111151388&redirect_uri=https%3A%2F%2Fbfc6ee31b16b.ngrok.io%2Fapi%2Fauth%2Ffacebook%2Fcallback&scope=email&response_type=code
+              message: null
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

@@ -46,8 +46,9 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
 
     public function register($data)
     {
-        $userData = $data->only(['email', 'full_name', 'name', 'password']);
+        $userData = $data->only(['email', 'fullName', 'name', 'password']);
         $userData['password'] = bcrypt($userData['password']);
+        $userData['full_name'] = $userData['fullName'];
 
         try {
             $this->model->create($userData);

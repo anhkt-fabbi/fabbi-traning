@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\SocialAccount;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
     private $guard;
 
@@ -49,16 +51,56 @@ class AuthController extends Controller
 
     public function redirectSocial($social)
     {
-        return response()->json([
-            'url' => Socialite::driver($social)->stateless()->redirect()->getTargetUrl(),
+        return $this->sendSuccess([
+            'url' => Socialite::driver($social)->stateless()->redirect()->getTargetUrl()
         ]);
     }
 
     public function callbackSocial($social)
     {
-        dd("asd");
-        $user = Socialite::driver($social)->stateless()->user();
-        Log::info($user->token);
-        dd($user);
+        $socialUser = Socialite::driver($social)->stateless()->user();
+        $user = User::where('email', $socialUser->email)->first();
+        if (is_null($user)) {
+            DB::beginTransaction();
+            try {
+                $userCreated = User::create([
+                    'email' => $socialUser->email,
+                    'name' => $socialUser->name
+                ]);
+
+                SocialAccount::create([
+                    'user_id' => $userCreated->id,
+                    'social_id' => $socialUser->getId(),
+                    'social_provider' => $social,
+                    'social_name' => $socialUser->getName()
+                ]);
+
+                $token = JWTAuth::fromUser($userCreated);
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return [
+                    'success' => false,
+                ];
+            }
+        } else {
+            SocialAccount::create([
+                'user_id' => $user->id,
+                'social_id' => $socialUser->getId(),
+                'social_provider' => $social,
+                'social_name' => $socialUser->getName()
+            ]);
+
+            $token = JWTAuth::fromUser($user);
+        }
+
+        return $this->sendSuccess([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->guard('api')->factory()->getTTL() * 60
+        ]);
+
     }
 }

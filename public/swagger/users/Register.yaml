@@ -17,12 +17,9 @@ post:
             confirmPassword:
               type: string
               example: 123456789
-            full_name:
+            fullName:
               type: string
               example: kieu tuan anh
-            name:
-              type: string
-              example: anh
   responses:
     200:
       description: successful operation

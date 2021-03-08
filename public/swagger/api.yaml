@@ -8,6 +8,10 @@ servers:
 paths:
   /auth/login:
     $ref: auth/Login.yaml
+  /auth/facebook/login:
+    $ref: auth/FetchUrlSocial.yaml
+  /auth/facebook/callback:
+    $ref: auth/LoginSocial.yaml
   /auth/register:
     $ref: users/Register.yaml
   /users/change-password:

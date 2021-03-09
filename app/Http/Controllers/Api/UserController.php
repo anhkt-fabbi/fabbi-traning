@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Enums\Constant;
 use App\Enums\ErrorType;
 use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\CreateVoteRequest;
 use App\Http\Requests\User\UserRegisterRequest;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
@@ -34,6 +35,17 @@ class UserController extends ApiController
 
         if (!$result['success']) {
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
+        }
+
+        return $this->sendSuccess(null, Constant::SUCCESS);
+    }
+
+    public function createVote(CreateVoteRequest $request)
+    {
+        $result = $this->userRepository->createVote($request);
+
+        if (!$result['success']) {
+            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
         }
 
         return $this->sendSuccess(null, Constant::SUCCESS);

@@ -23,6 +23,15 @@ class User extends Authenticatable implements JWTSubject
         'full_name'
     ];
 
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function options()
+    {
+        return $this->belongsToMany(User::class);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

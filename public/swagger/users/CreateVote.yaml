@@ -1,0 +1,57 @@
+post:
+  tags:
+    - users
+  security:
+    - bearerAuth: []
+  summary: Create vote
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: true
+          properties:
+            title:
+              type: string
+              example: Đi đá bóng
+            options:
+              type: array
+              items:
+                type: string
+              example:
+                - 7h thứ 3 ở cà mau
+                - 6h thứ 3 ở sân bóng mĩ đình hà nội
+                - 8h thứ 3 sân nhổn đi
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            data:
+              data: ''
+              message: success
+    422:
+      description: The request was well-formed
+      content:
+        application/json:
+          examples:
+            error:
+              code: 4220
+              message: The given data was invalid
+              errors:
+                title:
+                  - The title field is required.
+                  - Title must not be longer than 255 characters.
+                options:
+                  - The options field is required.
+                  - The options must be an array.
+                options.0:
+                  - The options.0 must be a string.
+                options.1:
+                  - The options.1 must be a string.
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

@@ -30,5 +30,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::group(['prefix' => 'users'], function() {
         Route::post('change-password', [UserController::class, 'changePassword']);
+        Route::post('create-vote', [UserController::class, 'createVote']);
     });
 });

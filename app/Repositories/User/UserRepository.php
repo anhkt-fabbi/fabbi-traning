@@ -5,6 +5,7 @@ namespace App\Repositories\User;
 use App\Enums\ErrorType;
 use App\Models\User;
 use App\Repositories\RepositoryAbstract;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Mockery\Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -57,6 +58,38 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
                 'success' => true
             ];
         } catch (Exception $exception) {
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
+        }
+    }
+
+    public function createVote($data)
+    {
+        $user = JWTAuth::user();
+        $title = $data->only('title');
+        $optionsData = $data->options;
+        $optionsVote = [];
+
+        DB::beginTransaction();
+        try {
+            $vote = $user->votes()->create($title);
+            foreach ($optionsData as $option) {
+                $optionsVote[] = [
+                    'option' => $option,
+                    'vote_id' => $vote->id
+                ];
+            }
+            DB::table('options')->insert($optionsVote);
+
+            DB::commit();
+            return [
+                'success' => true
+            ];
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
             return [
                 'success' => false,
                 'message' => $exception->getMessage()

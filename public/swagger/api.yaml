@@ -16,6 +16,8 @@ paths:
     $ref: users/Register.yaml
   /users/change-password:
     $ref: users/ChangePassword.yaml
+  /users/create-vote:
+    $ref: users/CreateVote.yaml
 components:
   securitySchemes:
     bearerAuth:

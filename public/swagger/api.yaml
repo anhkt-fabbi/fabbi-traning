@@ -18,6 +18,8 @@ paths:
     $ref: users/ChangePassword.yaml
   /users/create-vote:
     $ref: users/CreateVote.yaml
+  /users/up-vote:
+    $ref: users/UpVote.yaml
 components:
   securitySchemes:
     bearerAuth:

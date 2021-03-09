@@ -1,0 +1,48 @@
+post:
+  tags:
+    - users
+  security:
+    - bearerAuth: []
+  summary: Up vote
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: true
+          properties:
+            optionsId:
+              type: array
+              items:
+                type: int
+              example: [ 1, 2, 6, 8]
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            data:
+              data: ''
+              message: success
+    422:
+      description: The request was well-formed
+      content:
+        application/json:
+          examples:
+            error:
+              code: 4220
+              message: The given data was invalid
+              errors:
+                options:
+                  - The options id field is required.
+                  - The options must be an array.
+                optionsId.0:
+                  - The options.0 must be a integer.
+                optionsId.1:
+                  - The options.1 must be a integer.
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

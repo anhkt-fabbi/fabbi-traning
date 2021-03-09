@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Options extends Model
+class Option extends Model
 {
     use HasFactory;
 
@@ -18,11 +18,11 @@ class Options extends Model
 
     public function vote()
     {
-        return $this->belongsTo(Options::class);
+        return $this->belongsTo(Option::class);
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'option_users');
     }
 }

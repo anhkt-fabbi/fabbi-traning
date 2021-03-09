@@ -96,4 +96,23 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             ];
         }
     }
+
+    public function upVote($data)
+    {
+        $options = $data->optionsId;
+        $user = JWTAuth::user();
+
+        try {
+            $user->options()->attach($options);
+
+            return [
+                'success' => true
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
+        }
+    }
 }

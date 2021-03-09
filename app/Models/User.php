@@ -30,7 +30,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function options()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(\App\Models\Option::class, 'option_users');
     }
     /**
      * The attributes that should be hidden for arrays.

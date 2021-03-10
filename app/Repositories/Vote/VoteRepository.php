@@ -40,4 +40,16 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
             'data' => $data
         ];
     }
+
+    public function show($id)
+    {
+        $data = $this->model->with(['user:id,full_name,email','options' => function ($q) {
+            $q->with('users:id,full_name,email')->get();
+        }])->where('id', $id)->get();
+
+        return [
+            'success' => true,
+            'data' => $data
+        ];
+    }
 }

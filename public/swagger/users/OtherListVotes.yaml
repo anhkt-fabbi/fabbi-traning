@@ -3,19 +3,21 @@ get:
     - users
   security:
     - bearerAuth: []
-  summary: List vote of user
+  summary: Show list votes other user
   parameters:
     - in: query
       name: perPage
       schema:
-        type: string
+        type: integer
       description: import records per page
       required: true
-    - in: query
-      name: title
+    - name: id
+      in: path
+      description: user id
+      required: true
       schema:
-        type: string
-      description: search by title of vote
+        type: integer
+        example: 1
   responses:
     200:
       description: successful operation

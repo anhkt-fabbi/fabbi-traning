@@ -24,8 +24,12 @@ paths:
     $ref: users/DeleteVote.yaml
   /users/update-vote/{id}:
     $ref: users/UpdateVote.yaml
-  /users/list-vote:
-    $ref: users/ListVotes.yaml
+  /users/list-votes:
+    $ref: users/YourListVotes.yaml
+  /users/{id}/list-votes:
+    $ref: users/OtherListVotes.yaml
+  /votes/{id}:
+    $ref: votes/Show.yaml
 components:
   securitySchemes:
     bearerAuth:

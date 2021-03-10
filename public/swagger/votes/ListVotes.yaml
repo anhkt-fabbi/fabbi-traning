@@ -15,12 +15,12 @@ get:
       name: username
       schema:
         type: string
-      description: search by username of vote
+      description: search by username of votes
     - in: query
       name: title
       schema:
         type: string
-      description: search title of vote
+      description: search title of votes
   responses:
     200:
       description: successful operation

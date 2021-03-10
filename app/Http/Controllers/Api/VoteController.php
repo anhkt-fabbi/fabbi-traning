@@ -25,4 +25,14 @@ class VoteController extends ApiController
 
         return $this->sendSuccess($result['data'], Constant::SUCCESS);
     }
+
+    public function show($id)
+    {
+        $result = $this->voteRepository->show($id);
+        if (!$result['success']) {
+            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
+        }
+
+        return $this->sendSuccess($result['data'], Constant::SUCCESS);
+    }
 }

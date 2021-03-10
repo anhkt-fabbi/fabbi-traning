@@ -3,11 +3,11 @@ put:
     - users
   security:
     - bearerAuth: []
-  summary: Update vote
+  summary: Update votes
   parameters:
     - name: id
       in: path
-      description: Id of vote
+      description: Id of votes
       required: true
       schema:
         type: integer

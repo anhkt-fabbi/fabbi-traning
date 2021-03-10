@@ -3,11 +3,11 @@ delete:
     - users
   security:
     - bearerAuth: []
-  summary: Delete vote
+  summary: Delete votes
   parameters:
     - name: id
       in: path
-      description: Id of vote
+      description: Id of votes
       required: true
       schema:
         type: integer
@@ -23,6 +23,8 @@ delete:
             data:
               data: ''
               message: success
+    404:
+      description: page not found
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

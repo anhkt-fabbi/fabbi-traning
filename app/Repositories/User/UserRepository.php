@@ -172,10 +172,36 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         }
     }
 
+    public function updateVote($request, $id)
+    {
+        dd($request->all());
+    }
+
     public function listVote($request)
     {
         $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
         $user = JWTAuth::user();
+
+        $data = Vote::with(['options' => function($q) {
+            $q->withCount('users as qty');
+        }])->where('user_id', $user->id);
+        if (!empty($request['title'])) {
+            $data->where('title', 'like', $request['title']);
+        }
+
+        return [
+            'success' => true,
+            'data' => [
+                'user' => $user,
+                'votes' => $data->orderBy('id', 'desc')->take($perPage)->get()
+            ]
+        ];
+    }
+
+    public function listVoteOfUser($request, $id)
+    {
+        $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
+        $user = $this->model->findOrFail($id);
 
         $data = Vote::with(['options' => function($q) {
             $q->withCount('users as qty');

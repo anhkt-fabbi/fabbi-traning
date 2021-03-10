@@ -11,6 +11,11 @@ get:
         type: string
       description: import records per page
       required: true
+    - in: query
+      name: title
+      schema:
+        type: string
+      description: search by title of vote
   responses:
     200:
       description: successful operation

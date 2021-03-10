@@ -26,8 +26,6 @@ paths:
     $ref: users/UpdateVote.yaml
   /users/list-vote:
     $ref: users/ListVotes.yaml
-  /votes:
-    $ref: vote/ListVotes.yaml
 components:
   securitySchemes:
     bearerAuth:

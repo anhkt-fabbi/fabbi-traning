@@ -5,6 +5,7 @@ namespace App\Repositories\Vote;
 
 
 use App\Enums\Constant;
+use App\Models\User;
 use App\Models\Vote;
 use App\Repositories\RepositoryAbstract;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterface
 {
-    public function getModel()
+    public function model()
     {
         return Vote::class;
     }
@@ -20,10 +21,20 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
     public function listVotes($request)
     {
         $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
-        $data = $this->model->with(['options' => function($q) {
-            $q->withCount('users as qty');
-        }])->orderBy('id', 'desc')->take($perPage)->get();
+//        $data = $this->model->with(['options' => function($q) {
+//            $q->withCount('users as qty');
+//        }])->orderBy('id', 'desc')->take($perPage)->get();
+        DB::enableQueryLog();
+        $data = User::with(['votes' => function ($q) use($perPage) {
+            $q->with(['options' => function ($q) {
+                $q->withCount('users as qty');
+            }])->orderBy('id', 'desc')->take($perPage);
+        }]);
+        if (!empty($request['name'])){
+            $data->where('full_name', 'like', '%' . $request['name'] . '%');
+        }
 
+        dd($data->get()->toArray());
         return [
             'success' => true,
             'data' => $data

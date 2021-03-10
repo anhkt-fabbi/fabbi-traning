@@ -1,114 +1,81 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Container\Container as App;
 
 abstract class RepositoryAbstract implements RepositoryInterface
 {
-    /**
-     * @var Model
-     */
     protected $model;
-
     /**
-     * RepositoryAbstract constructor.
+     * @var $model
      */
-    public function __construct()
+    private $app;
+
+    public function __construct(App $app)
     {
-        $this->setModel();
+        $this->app = $app;
+        $this->makeModel();
+    }
+
+    public function makeModel()
+    {
+        $model = $this->app->make($this->model());
+
+        return $this->model = $model->newQuery();
     }
 
     /**
-     * get model
-     * @return string
-     */
-    abstract public function getModel();
-
-    /**
-     * Set model
-     */
-    public function setModel()
-    {
-        $this->model = app()->make(
-            $this->getModel()
-        );
-    }
-
-    /**
-     * Get all
-     */
-    public function all()
-    {
-        return $this->model::all();
-    }
-
-    /**
-     * Get one
-     * @param $id
      * @return mixed
      */
-    public function find($id, $attributes = null)
-    {
-        if ($attributes) {
-            $result = $this->model::select($attributes)->findOrFail($id);
-        } else {
-            $result = $this->model->findOrFail($id);
-        }
+    abstract function model();
 
-        return $result;
+    /**
+     * @param string[] $columns
+     * @return mixed
+     */
+    public function all($columns = ['*'])
+    {
+        return $this->model->get($columns);
     }
 
     /**
-     * Delete
-     *
-     * @param $id
+     * @param $keyNeedUpdate
+     * @param $data
+     * @return mixed
      */
+    public function updateOrCreate($keyNeedUpdate, $data)
+    {
+        return $this->updateOrCreate($keyNeedUpdate, $data);
+    }
+
+    public function paginate($perPage = 15, $columns = array('*'))
+    {
+        return $this->model->paginate($perPage, $columns);
+    }
+
+    public function create(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function update(array $data, $id, $attribute = "id")
+    {
+        return $this->model->where($attribute, '=', $id)->update($data);
+    }
+
     public function delete($id)
     {
-        $result = $this->find($id);
-        if ($result) {
-            $result->delete();
-
-            return true;
-        }
-
-        return false;
+        return $this->model->destroy($id);
     }
 
-    /**
-     * create
-     * @param array
-     */
-    public function create($attributes = [])
+    public function find($id, $columns = ["*"])
     {
-        return $this->model::create($attributes);
+        return $this->model->find($id, $columns);
     }
 
-    /**
-     * insert
-     * @param array
-     */
-    public function insert($array = [])
+    public function findBy($attribute, $value, $columns = array('*'))
     {
-        return $this->model::insert($array);
-    }
-
-    /**
-     * update
-     * @param  $id , array
-     * @return  bool
-     */
-    public function update($id, $attributes = [])
-    {
-        $result = $this->find($id);
-        if ($result) {
-            $result->update($attributes);
-            return $result;
-        }
-
-        return false;
+        return $this->model->where($attribute, '=', $value)->first($columns);
     }
 }

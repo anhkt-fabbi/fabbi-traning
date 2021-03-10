@@ -18,7 +18,7 @@ use function PHPUnit\Framework\isNull;
 
 class UserRepository extends RepositoryAbstract implements UserRepositoryInterface
 {
-    public function getModel()
+    public function model()
     {
         return User::class;
     }
@@ -179,13 +179,16 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
 
         $data = Vote::with(['options' => function($q) {
             $q->withCount('users as qty');
-        }])->where('user_id', $user->id)->orderBy('id', 'desc')->take($perPage)->get();
+        }])->where('user_id', $user->id);
+        if (!empty($request['title'])) {
+            $data->where('title', 'like', $request['title']);
+        }
 
         return [
             'success' => true,
             'data' => [
                 'user' => $user,
-                'votes' => $data
+                'votes' => $data->orderBy('id', 'desc')->take($perPage)->get()
             ]
         ];
     }

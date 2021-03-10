@@ -3,7 +3,7 @@ post:
     - users
   security:
     - bearerAuth: []
-  summary: Up vote
+  summary: User up vote
   requestBody:
     content:
       application/json:

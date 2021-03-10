@@ -1,52 +1,22 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Repositories;
 
 interface RepositoryInterface
 {
-    /**
-     * Get all
-     * @return mixed
-     */
-    public function all();
+    public function all($columns = array('*'));
 
-    /**
-     * Get one
-     * @param $id
-     * @return mixed
-     */
-    public function find($id, $attributes);
+    public function updateOrCreate($keyNeedUpdate, $data);
 
-    /**
-     * Delete
-     *
-     * @param $id
-     * @return bool
-     */
+    public function paginate($perPage = 15, $columns = array('*'));
+
+    public function create(array $data);
+
+    public function update(array $data, $id);
+
     public function delete($id);
 
-    /**
-     * Create
-     *
-     * @param $id
-     * @return bool
-     */
-    public function create($attribute);
+    public function find($id, $columns = array('*'));
 
-    /**
-     * Insert
-     *
-     * @param $array
-     * @return bool
-     */
-    public function insert($array);
-
-    /**
-     * Update
-     * @param $id , $attribute
-     * @return bool
-     */
-    public function update($id, $attribute);
+    public function findBy($field, $value, $columns = array('*'));
 }

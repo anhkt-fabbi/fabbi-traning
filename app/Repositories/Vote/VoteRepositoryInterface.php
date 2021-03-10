@@ -8,6 +8,7 @@ use App\Repositories\RepositoryInterface;
 
 interface VoteRepositoryInterface extends RepositoryInterface
 {
-    public function listVotes($request);
     public function show($id);
+    public function updateVoteTitle($request, $id);
+    public function updateOptions($request, $id);
 }

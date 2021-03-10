@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Vote\VoteRepositoryInterface::class,
             \App\Repositories\Vote\VoteRepository::class
         );
+        $this->app->singleton(
+            \App\Repositories\Option\OptionRepositoryInterface::class,
+            \App\Repositories\Option\OptionRepository::class
+        );
     }
 
     /**

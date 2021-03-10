@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Mockery\Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
 
 
 class UserRepository extends RepositoryAbstract implements UserRepositoryInterface
@@ -75,18 +73,18 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $user = JWTAuth::user();
         $title = $data->only('title');
         $optionsData = $data->options;
-        $optionsVote = [];
+        $options = [];
 
         DB::beginTransaction();
         try {
             $vote = $user->votes()->create($title);
             foreach ($optionsData as $option) {
-                $optionsVote[] = [
+                $options[] = [
                     'option' => $option,
                     'vote_id' => $vote->id
                 ];
             }
-            DB::table('options')->insert($optionsVote);
+            DB::table('options')->insert($options);
 
             DB::commit();
             return [
@@ -174,7 +172,13 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
 
     public function updateVote($request, $id)
     {
-        dd($request->all());
+        $user = JWTAuth::user();
+        $vote = Vote::where('id', $id)->where('user_id', $user->id)->first();
+
+        if ($request->has('title')) {
+            $vote->title = $request->title;
+            $vote->save();
+        }
     }
 
     public function listVote($request)
@@ -182,7 +186,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
         $user = JWTAuth::user();
 
-        $data = Vote::with(['options' => function($q) {
+        $data = Vote::with(['options' => function ($q) {
             $q->withCount('users as qty');
         }])->where('user_id', $user->id);
         if (!empty($request['title'])) {
@@ -203,7 +207,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
         $user = $this->model->findOrFail($id);
 
-        $data = Vote::with(['options' => function($q) {
+        $data = Vote::with(['options' => function ($q) {
             $q->withCount('users as qty');
         }])->where('user_id', $user->id);
         if (!empty($request['title'])) {

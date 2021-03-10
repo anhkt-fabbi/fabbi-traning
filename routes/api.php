@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OptionController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoteController;
 use Illuminate\Http\Request;
@@ -29,17 +30,19 @@ Route::group([
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::group(['prefix' => 'users'], function() {
+    Route::group(['prefix' => 'users'], function () {
         Route::post('change-password', [UserController::class, 'changePassword']);
         Route::post('create-vote', [UserController::class, 'createVote']);
         Route::post('up-votes', [UserController::class, 'upVote']);
         Route::delete('delete-vote/{id}', [UserController::class, 'deleteVote']);
-        Route::delete('update-vote/{id}', [UserController::class, 'updateVote']);
+
         Route::get('list-votes', [UserController::class, 'listVote']);
         Route::get('{id}/list-votes', [UserController::class, 'listVoteOfUser']);
     });
 
     Route::group(['prefix' => 'votes'], function () {
-       Route::get('{id}', [VoteController::class, 'show']);
+        Route::get('{id}', [VoteController::class, 'show']);
+        Route::put('{id}', [VoteController::class, 'updateVoteTitle']);
+        Route::put('{id}', [VoteController::class, 'updateOptions']);
     });
 });

@@ -18,29 +18,6 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
         return Vote::class;
     }
 
-    public function listVotes($request)
-    {
-        $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
-//        $data = $this->model->with(['options' => function($q) {
-//            $q->withCount('users as qty');
-//        }])->orderBy('id', 'desc')->take($perPage)->get();
-        DB::enableQueryLog();
-        $data = User::with(['votes' => function ($q) use($perPage) {
-            $q->with(['options' => function ($q) {
-                $q->withCount('users as qty');
-            }])->orderBy('id', 'desc')->take($perPage);
-        }]);
-        if (!empty($request['name'])){
-            $data->where('full_name', 'like', '%' . $request['name'] . '%');
-        }
-
-        dd($data->get()->toArray());
-        return [
-            'success' => true,
-            'data' => $data
-        ];
-    }
-
     public function show($id)
     {
         $data = $this->model->with(['user:id,full_name,email','options' => function ($q) {
@@ -51,5 +28,55 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
             'success' => true,
             'data' => $data
         ];
+    }
+
+    public function updateVoteTitle($request, $id)
+    {
+        $user = JWTAuth::user();
+        $vote = $this->model->where('user_id', $user->id)->where('id', $id)->first();
+
+        if ($vote) {
+            $vote->title = $request->title;
+            $vote->save();
+
+            return [
+                'success' => true
+            ];
+        }
+
+        return  [
+            'success' => false
+        ];
+    }
+
+    public function updateOptions($request, $id)
+    {
+        $vote = $this->model->findOrFail($id);
+        $optionsData = $request->addOptions;
+        $editOptions = $request->editOptions;
+        $options = [];
+
+        try {
+            if (!empty($optionsData)) {
+                foreach ($optionsData as $option) {
+                    $options[] = [
+                        'option' => $option,
+                        'vote_id' => $vote->id
+                    ];
+                }
+                DB::table('options')->insert($options);
+            }
+            if (!empty($editOptions)) {
+                foreach ($editOptions as $option) {
+
+                }
+            }
+
+            return [
+                'success' => true
+            ];
+        } catch (\Exception $exception) {
+
+        }
     }
 }

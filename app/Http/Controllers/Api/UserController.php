@@ -74,17 +74,6 @@ class UserController extends ApiController
         return $this->sendSuccess(null, Constant::SUCCESS);
     }
 
-    public function updateVote(Request $request, $id)
-    {
-        $result = $this->userRepository->updateVote($id);
-
-        if (!$result['success']) {
-            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
-        }
-
-        return $this->sendSuccess(null, Constant::SUCCESS);
-    }
-
     public function listVote(Request $request)
     {
         $result = $this->userRepository->listVote($request);

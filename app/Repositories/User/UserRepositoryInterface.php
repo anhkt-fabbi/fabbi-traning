@@ -11,6 +11,5 @@ interface UserRepositoryInterface extends RepositoryInterface {
     public function upVote($data);
     public function deleteVote($id);
     public function updateVote($request, $id);
-    public function listVote($request);
     public function listVoteOfUser($request, $id);
 }

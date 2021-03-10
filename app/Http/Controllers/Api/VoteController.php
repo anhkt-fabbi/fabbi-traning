@@ -16,9 +16,9 @@ class VoteController extends ApiController
         $this->voteRepository = $voteRepository;
     }
 
-    public function listVotes()
+    public function listVotes(Request $request)
     {
-        $result = $this->voteRepository->listVotes();
+        $result = $this->voteRepository->listVotes($request);
         if (!$result['success']) {
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }

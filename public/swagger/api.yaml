@@ -20,6 +20,12 @@ paths:
     $ref: users/CreateVote.yaml
   /users/up-vote:
     $ref: users/UpVote.yaml
+  /users/delete-vote/{id}:
+    $ref: users/DeleteVote.yaml
+  /users/update-vote/{id}:
+    $ref: users/UpdateVote.yaml
+  /users/list-vote:
+    $ref: users/ListVotes.yaml
   /votes:
     $ref: vote/ListVotes.yaml
 components:

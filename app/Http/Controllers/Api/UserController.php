@@ -9,6 +9,7 @@ use App\Http\Requests\User\CreateVoteRequest;
 use App\Http\Requests\User\UpVoteRequest;
 use App\Http\Requests\User\UserRegisterRequest;
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
@@ -60,5 +61,27 @@ class UserController extends ApiController
         }
 
         return $this->sendSuccess(null, Constant::SUCCESS);
+    }
+
+    public function deleteVote($id)
+    {
+        $result = $this->userRepository->deleteVote($id);
+
+        if (!$result['success']) {
+            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
+        }
+
+        return $this->sendSuccess(null, Constant::SUCCESS);
+    }
+
+    public function listVote(Request $request)
+    {
+        $result = $this->userRepository->listVote($request);
+
+        if (!$result['success']) {
+            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
+        }
+
+        return $this->sendSuccess($result['data'], Constant::SUCCESS);
     }
 }

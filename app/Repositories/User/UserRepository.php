@@ -2,9 +2,11 @@
 
 namespace App\Repositories\User;
 
+use App\Enums\Constant;
 use App\Enums\ErrorType;
 use App\Models\Option;
 use App\Models\User;
+use App\Models\Vote;
 use App\Repositories\RepositoryAbstract;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -134,5 +136,57 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
                 'message' => $exception->getMessage()
             ];
         }
+    }
+
+    public function deleteVote($id)
+    {
+        $user = JWTAuth::user();
+        $vote = Vote::where('user_id', $user->id)
+            ->where('id', $id)->first();
+
+        DB::beginTransaction();
+        try {
+            if ($vote) {
+                foreach ($vote->options as $option) {
+                    $option->users()->detach();
+                }
+                $vote->options()->delete();
+                $vote->delete();
+
+                DB::commit();
+                return [
+                    'success' => true
+                ];
+            }
+
+            return [
+                'success' => false
+            ];
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
+        }
+    }
+
+    public function listVote($request)
+    {
+        $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
+        $user = JWTAuth::user();
+
+        $data = Vote::with(['options' => function($q) {
+            $q->withCount('users as qty');
+        }])->where('user_id', $user->id)->orderBy('id', 'desc')->take($perPage)->get();
+
+        return [
+            'success' => true,
+            'data' => [
+                'user' => $user,
+                'votes' => $data
+            ]
+        ];
     }
 }

@@ -4,6 +4,7 @@
 namespace App\Repositories\Vote;
 
 
+use App\Enums\Constant;
 use App\Models\Vote;
 use App\Repositories\RepositoryAbstract;
 use Illuminate\Support\Facades\DB;
@@ -16,11 +17,12 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
         return Vote::class;
     }
 
-    public function listVotes()
+    public function listVotes($request)
     {
+        $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
         $data = $this->model->with(['options' => function($q) {
             $q->withCount('users as qty');
-        }])->get();
+        }])->orderBy('id', 'desc')->take($perPage)->get();
 
         return [
             'success' => true,

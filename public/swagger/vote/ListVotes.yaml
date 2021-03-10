@@ -4,6 +4,13 @@ get:
   security:
     - bearerAuth: []
   summary: List votes
+  parameters:
+    - in: query
+      name: perPage
+      schema:
+        type: string
+      description: import records per page
+      required: true
   responses:
     200:
       description: successful operation

@@ -1,0 +1,28 @@
+put:
+  tags:
+    - users
+  security:
+    - bearerAuth: []
+  summary: Update vote
+  parameters:
+    - name: id
+      in: path
+      description: Id of vote
+      required: true
+      schema:
+        type: integer
+        example: 1
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            data:
+              data: ''
+              message: success
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

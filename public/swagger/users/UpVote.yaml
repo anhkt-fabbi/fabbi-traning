@@ -16,6 +16,16 @@ post:
               items:
                 type: int
               example: [ 1, 2, 6, 8]
+            customOptions:
+              type: array
+              items:
+                type: string
+              example:
+                - Không đi
+                - Đi chơi cái khác
+            voteId:
+              type: integer
+              example: 1
   responses:
     200:
       description: successful operation

@@ -3,12 +3,15 @@
 namespace App\Repositories\User;
 
 use App\Enums\ErrorType;
+use App\Models\Option;
 use App\Models\User;
 use App\Repositories\RepositoryAbstract;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Mockery\Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 
 class UserRepository extends RepositoryAbstract implements UserRepositoryInterface
@@ -101,14 +104,31 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
     {
         $options = $data->optionsId;
         $user = JWTAuth::user();
+        $customOptions = $data->customOptions;
+        $voteId = $data->voteId;
 
+        DB::beginTransaction();
         try {
+            if (!is_null($customOptions)) {
+                foreach ($customOptions as $customOption) {
+                    $option = Option::create(
+                        [
+                            'vote_id' => $voteId,
+                            'option' => $customOption
+                        ]
+                    );
+                    array_push($options, $option->id);
+                }
+            }
             $user->options()->attach($options);
 
+            DB::commit();
             return [
                 'success' => true
             ];
         } catch (\Exception $exception) {
+            DB::rollBack();
+
             return [
                 'success' => false,
                 'message' => $exception->getMessage()

@@ -9,7 +9,6 @@ use App\Http\Requests\User\CreateVoteRequest;
 use App\Http\Requests\User\UpVoteRequest;
 use App\Http\Requests\User\UserRegisterRequest;
 use App\Repositories\User\UserRepositoryInterface;
-use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {

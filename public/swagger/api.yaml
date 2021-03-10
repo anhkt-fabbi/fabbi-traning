@@ -20,6 +20,8 @@ paths:
     $ref: users/CreateVote.yaml
   /users/up-vote:
     $ref: users/UpVote.yaml
+  /votes:
+    $ref: vote/ListVotes.yaml
 components:
   securitySchemes:
     bearerAuth:

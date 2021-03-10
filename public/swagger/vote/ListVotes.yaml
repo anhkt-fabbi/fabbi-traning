@@ -1,0 +1,48 @@
+get:
+  tags:
+    - votes
+  security:
+    - bearerAuth: []
+  summary: List votes
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: Đi đá bóng
+                    created_at:
+                      type: string
+                      example: "2021-03-09 09:46:15"
+                    updated_at:
+                      type: string
+                      example: "2021-03-09 09:46:15"
+                    options:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          option:
+                            type: string
+                            example: 7h thứ 3 ở cà mau
+                          qty:
+                            type: integer
+                            example: 2
+              message:
+                type: string
+                example: success
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

@@ -16,9 +16,9 @@ class Option extends Model
 
     protected $table = 'options';
 
-    public function vote()
+    public function votes()
     {
-        return $this->belongsTo(Option::class);
+        return $this->belongsTo(Vote::class);
     }
 
     public function users()

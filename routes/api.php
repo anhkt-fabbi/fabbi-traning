@@ -36,6 +36,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::group(['prefix' => 'votes'], function () {
-        Route::get('', [VoteController::class, 'show']);
+        Route::get('', [VoteController::class, 'listVotes']);
     });
 });

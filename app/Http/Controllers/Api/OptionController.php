@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Enums\Constant;
 use App\Enums\ErrorType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Option\UpdateOptionRequest;
 use App\Repositories\Option\OptionRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class OptionController extends ApiController
         $this->optionRepository = $optionRepository;
     }
 
-    public function updateOptions(Request $request, $id)
+    public function updateOptions(UpdateOptionRequest $request, $id)
     {
         $result = $this->optionRepository->updateOption($request, $id);
         if (!$result['success']) {

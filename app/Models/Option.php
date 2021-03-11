@@ -16,7 +16,7 @@ class Option extends Model
 
     protected $table = 'options';
 
-    public function votes()
+    public function vote()
     {
         return $this->belongsTo(Vote::class);
     }

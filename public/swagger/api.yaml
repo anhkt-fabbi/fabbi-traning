@@ -32,6 +32,8 @@ paths:
     $ref: votes/UpdateVoteTitle.yaml
   /votes/{id}/add-options:
     $ref: votes/AddOptions.yaml
+  /options/{id}:
+    $ref: options/UpdateOption.yaml
 components:
   securitySchemes:
     bearerAuth:

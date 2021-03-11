@@ -8,5 +8,5 @@ use App\Repositories\RepositoryInterface;
 
 interface OptionRepositoryInterface extends RepositoryInterface
 {
-
+        public function updateOption($request, $id);
 }

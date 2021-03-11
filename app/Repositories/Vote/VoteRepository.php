@@ -51,21 +51,28 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
 
     public function addOptions($request, $id)
     {
-        $vote = $this->model->findOrFail($id);
+        $user = JWTAuth::user();
+        $vote = $this->model->where('id' , $id)->where('user_id', $user->id)->first();
         $optionsData = $request->options;
 
         try {
-            $options = [];
-            foreach ($optionsData as $option) {
-                $options[] = [
-                    'option' => $option,
-                    'vote_id' => $vote->id
+            if ($vote) {
+                $options = [];
+                foreach ($optionsData as $option) {
+                    $options[] = [
+                        'option' => $option,
+                        'vote_id' => $vote->id
+                    ];
+                }
+                DB::table('options')->insert($options);
+
+                return [
+                    'success' => true
                 ];
             }
-            DB::table('options')->insert($options);
 
             return [
-                'success' => true
+                'success' => false
             ];
         } catch (\Exception $exception) {
             return [

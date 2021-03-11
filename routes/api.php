@@ -45,4 +45,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::put('{id}/update-title', [VoteController::class, 'updateVoteTitle']);
         Route::put('{id}/add-options', [VoteController::class, 'addOptions']);
     });
+
+    Route::group(['prefix' => 'options'], function () {
+        Route::put('{id}', [OptionController::class, 'updateOptions']) ;
+    });
 });

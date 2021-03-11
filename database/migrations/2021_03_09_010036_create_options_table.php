@@ -17,7 +17,6 @@ class CreateOptionsTable extends Migration
             $table->id();
             $table->integer('vote_id');
             $table->string('option');
-            $table->timestamps();
         });
     }
 

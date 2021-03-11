@@ -26,6 +26,8 @@ paths:
     $ref: users/YourListVotes.yaml
   /users/{id}/list-votes:
     $ref: users/OtherListVotes.yaml
+  /votes/:
+    $ref: votes/ListVotes.yaml
   /votes/{id}:
     $ref: votes/Show.yaml
   /votes/{id}/update-title:

@@ -190,7 +190,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             $q->withCount('users as qty');
         }])->where('user_id', $user->id);
         if (!empty($request['title'])) {
-            $data->where('title', 'like', $request['title']);
+            $data->where('title', 'like', '%' . $request['title'] . '%');
         }
 
         return [

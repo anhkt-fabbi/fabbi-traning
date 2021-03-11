@@ -81,4 +81,21 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
             ];
         }
     }
+
+    public function listVotes($request)
+    {
+        $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
+        $votes = $this->model->with(['user:id,full_name,email', 'options' => function($q) {
+            $q->with('users:id,full_name,email');
+        }]);
+
+        if (!empty($request['title'])) {
+            $votes->where('title', 'LIKE', '%' . $request['title'] . '%');
+        }
+
+        return [
+            'success' => true,
+            'data' => $votes->paginate($perPage)
+        ];
+    }
 }

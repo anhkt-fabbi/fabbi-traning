@@ -25,4 +25,6 @@ class Option extends Model
     {
         return $this->belongsToMany(User::class, 'option_users');
     }
+
+    public $timestamps = false;
 }

@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::post('change-password', [UserController::class, 'changePassword']);
         Route::post('create-vote', [UserController::class, 'createVote']);
-        Route::post('up-votes', [UserController::class, 'upVote']);
+        Route::post('up-vote', [UserController::class, 'upVote']);
         Route::delete('delete-vote/{id}', [UserController::class, 'deleteVote']);
 
         Route::get('list-votes', [UserController::class, 'listVote']);
@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('{id}', [VoteController::class, 'show']);
         Route::put('{id}/update-title', [VoteController::class, 'updateVoteTitle']);
         Route::put('{id}/add-options', [VoteController::class, 'addOptions']);
+        Route::get('', [VoteController::class, 'listVotes']);
     });
 
     Route::group(['prefix' => 'options'], function () {

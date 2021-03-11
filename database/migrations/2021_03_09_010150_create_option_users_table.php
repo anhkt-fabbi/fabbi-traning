@@ -17,7 +17,6 @@ class CreateOptionUsersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('option_id');
-            $table->timestamps();
         });
     }
 

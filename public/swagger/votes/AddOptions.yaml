@@ -46,8 +46,8 @@ put:
               message: The given data was invalid
               errors:
                 option:
-                  - The options id field is required.
-                  - The options id field must be array.
+                  - The options field is required.
+                  - The options field must be array.
                 options.0:
                   - The options.0 must be a string.
                   - The options.0 field is required.

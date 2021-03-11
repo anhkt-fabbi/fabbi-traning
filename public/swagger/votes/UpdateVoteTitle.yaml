@@ -42,7 +42,7 @@ put:
               message: The given data was invalid
               errors:
                 title:
-                  - The options id field is required.
+                  - The title field is required.
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

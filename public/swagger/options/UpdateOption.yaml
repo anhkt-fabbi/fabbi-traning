@@ -45,9 +45,10 @@ put:
               message: The given data was invalid
               errors:
                 option:
-                  - The options id field is required.
+                  - The options field is required.
+                  - The options must be string.
                 voteId:
-                  - The voteId id field is required.
+                  - The vote id field is required.
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

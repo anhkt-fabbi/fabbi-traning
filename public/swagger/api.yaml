@@ -26,7 +26,7 @@ paths:
     $ref: users/YourListVotes.yaml
   /users/{id}/list-votes:
     $ref: users/OtherListVotes.yaml
-  /users/un-up-vote:
+  /users/cancel-up-vote:
     $ref: users/UnUpVote.yaml
   /votes/:
     $ref: votes/ListVotes.yaml

@@ -6,6 +6,7 @@ use App\Enums\Constant;
 use App\Enums\ErrorType;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\CreateVoteRequest;
+use App\Http\Requests\User\UnUpVote;
 use App\Http\Requests\User\UpVoteRequest;
 use App\Http\Requests\User\UserRegisterRequest;
 use App\Repositories\User\UserRepositoryInterface;
@@ -94,5 +95,15 @@ class UserController extends ApiController
         }
 
         return $this->sendSuccess($result['data'], Constant::SUCCESS);
+    }
+
+    public function unUpVote(UnUpVote $request)
+    {
+        $result = $this->userRepository->unUpVote($request);
+        if (!$result['success']) {
+            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
+        }
+
+        return $this->sendSuccess(null, Constant::SUCCESS);
     }
 }

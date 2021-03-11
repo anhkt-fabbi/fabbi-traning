@@ -239,4 +239,24 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             ]
         ];
     }
+
+    public function unUpVote($request)
+    {
+        $user = JWTAuth::user();
+        $optionId = $request->optionId;
+
+        try {
+            DB::table('option_users')->where('user_id', $user->id)
+                ->where('option_id', $optionId)->delete();
+
+            return [
+                'success' => true
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
+        }
+    }
 }

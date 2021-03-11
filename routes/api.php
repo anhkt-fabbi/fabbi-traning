@@ -35,9 +35,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('create-vote', [UserController::class, 'createVote']);
         Route::post('up-vote', [UserController::class, 'upVote']);
         Route::delete('delete-vote/{id}', [UserController::class, 'deleteVote']);
-
         Route::get('list-votes', [UserController::class, 'listVote']);
         Route::get('{id}/list-votes', [UserController::class, 'listVoteOfUser']);
+        Route::post('un-up-vote', [UserController::class, 'unUpVote']);
     });
 
     Route::group(['prefix' => 'votes'], function () {

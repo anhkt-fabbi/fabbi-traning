@@ -1,0 +1,42 @@
+post:
+  tags:
+    - users
+  security:
+    - bearerAuth: []
+  summary: User up votes
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: true
+          properties:
+            optionId:
+              type: integer
+              example: 1
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            data:
+              data: ''
+              message: success
+    422:
+      description: The request was well-formed
+      content:
+        application/json:
+          examples:
+            error:
+              code: 4220
+              message: The given data was invalid
+              errors:
+                optionId:
+                  - The option id field is required.
+                  - The option id must be an integer.
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

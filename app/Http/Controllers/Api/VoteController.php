@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\Constant;
 use App\Enums\ErrorType;
+use App\Http\Requests\Vote\AddOptionRequest;
 use App\Http\Requests\Vote\UpdateTitleRequest;
 use App\Repositories\Vote\VoteRepositoryInterface;
 use Illuminate\Http\Request;
@@ -37,9 +38,9 @@ class VoteController extends ApiController
         return $this->sendSuccess(null, Constant::SUCCESS);
     }
 
-    public function updateOptions(Request $request, $id)
+    public function addOptions(AddOptionRequest $request, $id)
     {
-        $result = $this->voteRepository->updateOptions($request, $id);
+        $result = $this->voteRepository->addOptions($request, $id);
         if (!$result['success']) {
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }

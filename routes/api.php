@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['prefix' => 'votes'], function () {
         Route::get('{id}', [VoteController::class, 'show']);
-        Route::put('{id}', [VoteController::class, 'updateVoteTitle']);
-        Route::put('{id}', [VoteController::class, 'updateOptions']);
+        Route::put('{id}/update-title', [VoteController::class, 'updateVoteTitle']);
+        Route::put('{id}/add-options', [VoteController::class, 'addOptions']);
     });
 });

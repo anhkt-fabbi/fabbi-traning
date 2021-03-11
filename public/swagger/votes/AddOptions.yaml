@@ -1,0 +1,56 @@
+put:
+  tags:
+    - votes
+  security:
+    - bearerAuth: []
+  summary: Add option if vote available
+  parameters:
+    - in: path
+      name: id
+      schema:
+        type: integer
+      description: id of vote
+      required: true
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: true
+          properties:
+            options:
+              type: array
+              items:
+                type: string
+              example:
+                - add option here
+                - and here
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            data:
+              data: ''
+              message: success
+    422:
+      description: The request was well-formed
+      content:
+        application/json:
+          examples:
+            error:
+              code: 4220
+              message: The given data was invalid
+              errors:
+                option:
+                  - The options id field is required.
+                  - The options id field must be array.
+                options.0:
+                  - The options.0 must be a string.
+                  - The options.0 field is required.
+    500:
+      description: Server error
+      $ref: ../common/ServerError.yaml

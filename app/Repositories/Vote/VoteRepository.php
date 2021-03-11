@@ -49,34 +49,29 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
         ];
     }
 
-    public function updateOptions($request, $id)
+    public function addOptions($request, $id)
     {
         $vote = $this->model->findOrFail($id);
-        $optionsData = $request->addOptions;
-        $editOptions = $request->editOptions;
-        $options = [];
+        $optionsData = $request->options;
 
         try {
-            if (!empty($optionsData)) {
-                foreach ($optionsData as $option) {
-                    $options[] = [
-                        'option' => $option,
-                        'vote_id' => $vote->id
-                    ];
-                }
-                DB::table('options')->insert($options);
+            $options = [];
+            foreach ($optionsData as $option) {
+                $options[] = [
+                    'option' => $option,
+                    'vote_id' => $vote->id
+                ];
             }
-            if (!empty($editOptions)) {
-                foreach ($editOptions as $option) {
-
-                }
-            }
+            DB::table('options')->insert($options);
 
             return [
                 'success' => true
             ];
         } catch (\Exception $exception) {
-
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
         }
     }
 }

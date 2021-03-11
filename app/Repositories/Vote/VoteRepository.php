@@ -35,18 +35,26 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
         $user = JWTAuth::user();
         $vote = $this->model->where('user_id', $user->id)->where('id', $id)->first();
 
-        if ($vote) {
-            $vote->title = $request->title;
-            $vote->save();
+        try {
+            if ($vote) {
+                $vote->title = $request->title;
+                $vote->save();
 
-            return [
-                'success' => true
+                return [
+                    'success' => true
+                ];
+            }
+
+            return  [
+                'success' => false,
+                'message' => Constant::CLIENT_ERROR
+            ];
+        } catch (\Exception $exception) {
+            return  [
+                'success' => false,
+                'message' => $exception->getMessage()
             ];
         }
-
-        return  [
-            'success' => false
-        ];
     }
 
     public function addOptions($request, $id)
@@ -72,7 +80,8 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
             }
 
             return [
-                'success' => false
+                'success' => false,
+                'message' => Constant::CLIENT_ERROR
             ];
         } catch (\Exception $exception) {
             return [

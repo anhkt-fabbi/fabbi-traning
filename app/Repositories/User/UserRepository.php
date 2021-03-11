@@ -26,25 +26,25 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $user = JWTAuth::user();
 
         if (Hash::check($data->oldPassword, $user->password)) {
-            if ($data->newPassword == $data->confirmPassword) {
-                $user->password = bcrypt($data->newPassword);
-                try {
-                    $user->save();
-                    auth()->logout();
+            $user->password = bcrypt($data->newPassword);
+            try {
+                $user->save();
+                auth()->logout();
 
-                    return [
-                        'success' => true
-                    ];
-                } catch (\Exception $exception) {
-                    return [
-                        'success' => false
-                    ];
-                }
+                return [
+                    'success' => true
+                ];
+            } catch (\Exception $exception) {
+                return [
+                    'success' => false,
+                    'message' => $exception->getMessage()
+                ];
             }
         }
 
         return [
-            'success' => false
+            'success' => false,
+            'message' => Constant::CLIENT_ERROR
         ];
     }
 
@@ -158,7 +158,8 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             }
 
             return [
-                'success' => false
+                'success' => false,
+                'message' => Constant::CLIENT_ERROR
             ];
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -175,9 +176,25 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $user = JWTAuth::user();
         $vote = Vote::where('id', $id)->where('user_id', $user->id)->first();
 
-        if ($request->has('title')) {
-            $vote->title = $request->title;
-            $vote->save();
+        try {
+            if ($vote) {
+                $vote->title = $request->title;
+                $vote->save();
+
+                return [
+                    'success' => true
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => Constant::CLIENT_ERROR
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
         }
     }
 

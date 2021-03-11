@@ -4,6 +4,7 @@
 namespace App\Repositories\Option;
 
 
+use App\Enums\Constant;
 use App\Models\Option;
 use App\Repositories\RepositoryAbstract;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -33,7 +34,8 @@ class OptionRepository extends RepositoryAbstract implements OptionRepositoryInt
             }
 
             return [
-                'success' => false
+                'success' => false,
+                'message' => Constant::CLIENT_ERROR
             ];
         } catch (\Exception $exception) {
             return [

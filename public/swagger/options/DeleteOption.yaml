@@ -1,0 +1,26 @@
+tags:
+  - options
+security:
+  - bearerAuth: []
+summary: Delete option
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+    description: id of option
+    required: true
+responses:
+  200:
+    description: successful operation
+    content:
+      application/json:
+        schema:
+          type: object
+        examples:
+          data:
+            data: ''
+            message: success
+  500:
+    description: Server error
+    $ref: ../common/ServerError.yaml

@@ -49,5 +49,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['prefix' => 'options'], function () {
         Route::put('{id}', [OptionController::class, 'updateOptions']) ;
+        Route::delete('{id}', [OptionController::class, 'deleteOption']);
     });
 });

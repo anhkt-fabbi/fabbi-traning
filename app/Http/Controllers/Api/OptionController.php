@@ -27,4 +27,14 @@ class OptionController extends ApiController
 
         return $this->sendSuccess(null, Constant::SUCCESS);
     }
+
+    public function deleteOption($id)
+    {
+        $result = $this->optionRepository->deleteOption($id);
+        if (!$result['success']) {
+            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
+        }
+
+        return $this->sendSuccess(null, Constant::SUCCESS);
+    }
 }

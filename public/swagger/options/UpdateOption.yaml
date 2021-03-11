@@ -1,54 +1,53 @@
-put:
-  tags:
-    - options
-  security:
-    - bearerAuth: []
-  summary: Update option title
-  parameters:
-    - in: path
-      name: id
+tags:
+  - options
+security:
+  - bearerAuth: []
+summary: Update option title
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+    description: id of option
+    required: true
+requestBody:
+  content:
+    application/json:
       schema:
-        type: integer
-      description: id of option
-      required: true
-  requestBody:
+        type: object
+        required: true
+        properties:
+          option:
+            type: string
+            example: new title option
+          voteId:
+            type: integer
+            example: 1
+responses:
+  200:
+    description: successful operation
     content:
       application/json:
         schema:
           type: object
-          required: true
-          properties:
-            option:
-              type: string
-              example: new title option
-            voteId:
-              type: integer
-              example: 1
-  responses:
-    200:
-      description: successful operation
-      content:
-        application/json:
-          schema:
-            type: object
-          examples:
-            data:
-              data: ''
-              message: success
-    422:
-      description: The request was well-formed
-      content:
-        application/json:
-          examples:
-            error:
-              code: 4220
-              message: The given data was invalid
-              errors:
-                option:
-                  - The options field is required.
-                  - The options must be string.
-                voteId:
-                  - The vote id field is required.
-    500:
-      description: Server error
-      $ref: ../common/ServerError.yaml
+        examples:
+          data:
+            data: ''
+            message: success
+  422:
+    description: The request was well-formed
+    content:
+      application/json:
+        examples:
+          error:
+            code: 4220
+            message: The given data was invalid
+            errors:
+              option:
+                - The options field is required.
+                - The options must be string.
+              voteId:
+                - The vote id field is required.
+  500:
+    description: Server error
+    $ref: ../common/ServerError.yaml

@@ -17,7 +17,7 @@ requestBody:
         type: object
         required: true
         properties:
-          option:
+          title:
             type: string
             example: new title option
           voteId:
@@ -43,7 +43,7 @@ responses:
             code: 4220
             message: The given data was invalid
             errors:
-              option:
+              title:
                 - The options field is required.
                 - The options must be string.
               voteId:

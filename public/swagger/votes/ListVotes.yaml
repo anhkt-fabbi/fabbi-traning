@@ -27,7 +27,7 @@ get:
               data:
                 type: object
                 properties:
-                  data:
+                  listVotes:
                     type: array
                     items:
                       type: object
@@ -67,7 +67,7 @@ get:
                               vote_id:
                                 type: integer
                                 example: 1
-                              option:
+                              title:
                                 type: string
                                 example: 7h thứ 3 ở cà mau
                               list_up_vote:

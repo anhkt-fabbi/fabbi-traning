@@ -64,7 +64,7 @@ get:
                         updated_at:
                           type: string
                           example: "2021-03-12T01:07:53.000000Z"
-                        option:
+                        options:
                           type: array
                           items:
                             type: object
@@ -72,7 +72,7 @@ get:
                               id:
                                 type: integer
                                 example: 1
-                              options:
+                              title:
                                 type: string
                                 example: 7h thứ 3 ở cà mau
                               qtyVote:

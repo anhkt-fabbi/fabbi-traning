@@ -68,7 +68,7 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
                 $options = [];
                 foreach ($optionsData as $option) {
                     $options[] = [
-                        'option' => $option,
+                        'title' => $option,
                         'vote_id' => $vote->id
                     ];
                 }
@@ -102,9 +102,14 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
             $votes->where('title', 'LIKE', '%' . $request['title'] . '%');
         }
 
+        $data = $votes->paginate($perPage)->toArray();
+        $listVotes = $data['data'];
+        unset($data['data']);
+        $data['listVotes'] = $listVotes;
+
         return [
             'success' => true,
-            'data' => $votes->paginate($perPage)
+            'data' => $data
         ];
     }
 }

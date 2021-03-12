@@ -80,7 +80,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             $vote = $user->votes()->create($title);
             foreach ($optionsData as $option) {
                 $options[] = [
-                    'option' => $option,
+                    'title' => $option,
                     'vote_id' => $vote->id
                 ];
             }
@@ -114,7 +114,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
                     $option = Option::create(
                         [
                             'vote_id' => $voteId,
-                            'option' => $customOption
+                            'title' => $customOption
                         ]
                     );
                     array_push($options, $option->id);

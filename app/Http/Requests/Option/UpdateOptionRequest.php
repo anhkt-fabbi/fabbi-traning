@@ -24,7 +24,7 @@ class UpdateOptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'option' => 'required|string',
+            'title' => 'required|string',
             'voteId' => 'required|integer'
         ];
     }

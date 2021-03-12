@@ -19,7 +19,7 @@ class OptionRepository extends RepositoryAbstract implements OptionRepositoryInt
 
     public function updateOption($request, $id)
     {
-        $optionData = $request->option;
+        $optionData = $request->title;
         $voteId = $request->voteId;
         $user = JWTAuth::user();
         $option = $this->model->findOrFail($id);
@@ -27,7 +27,7 @@ class OptionRepository extends RepositoryAbstract implements OptionRepositoryInt
 
         try {
             if ($vote && $vote->id === $voteId) {
-                $option->option = $optionData;
+                $option->title = $optionData;
                 $option->save();
                 return [
                     'success' => true

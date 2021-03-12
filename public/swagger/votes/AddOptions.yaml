@@ -45,7 +45,7 @@ put:
               code: 4220
               message: The given data was invalid
               errors:
-                option:
+                options:
                   - The options field is required.
                   - The options field must be array.
                 options.0:

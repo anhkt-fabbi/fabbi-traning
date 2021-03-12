@@ -50,18 +50,26 @@ get:
                     items:
                       type: object
                       properties:
+                        title:
+                          type: string
+                          example: Đi đá bóng
                         id:
                           type: integer
                           example: 1
-                        vote_id:
-                          type: integer
-                          example: 1
                         options:
-                          type: string
-                          example: 7h thứ 3 ở cà mau
-                        qty:
-                          type: integer
-                          example: 4
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              option:
+                                type: string
+                                example: 7h thứ 3 ở cà mau
+                              qtyVote:
+                                type: integer
+                                example: 4
               message:
                 example: null
     500:

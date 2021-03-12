@@ -204,7 +204,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $user = JWTAuth::user();
 
         $data = Vote::with(['options' => function ($q) {
-            $q->withCount('users as qty');
+            $q->withCount('users as qtyVote');
         }])->where('user_id', $user->id);
         if (!empty($request['title'])) {
             $data->where('title', 'like', '%' . $request['title'] . '%');
@@ -225,7 +225,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $user = $this->model->findOrFail($id);
 
         $data = Vote::with(['options' => function ($q) {
-            $q->withCount('users as qty');
+            $q->withCount('users as qtyVote');
         }])->where('user_id', $user->id);
         if (!empty($request['title'])) {
             $data->where('title', 'like', $request['title']);

@@ -32,7 +32,7 @@ responses:
           type: object
         examples:
           data:
-            data: ''
+            data: null
             message: null
   422:
     description: The request was well-formed

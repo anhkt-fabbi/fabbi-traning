@@ -19,7 +19,7 @@ responses:
           type: object
         examples:
           data:
-            data: ''
+            data: null
             message: null
   500:
     description: Server error

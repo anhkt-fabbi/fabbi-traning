@@ -27,9 +27,6 @@ get:
               data:
                 type: object
                 properties:
-                  current_page:
-                    type: integer
-                    example: 1
                   data:
                     type: array
                     items:
@@ -81,28 +78,7 @@ get:
                                     email:
                                       type: string
                                       example: admin@gmail.com
-                  first_page_url:
-                    type: string
-                    example: http://127.0.0.1:8000/api/votes?page=1
-                  from:
-                    type: integer
-                    example: 1
-                  last_page:
-                    type: integer
-                    example: 5
-                  next_page_url:
-                    type: string
-                    example: http://127.0.0.1:8000/api/votes?page=2
-                  last_page_url:
-                    type: string
-                    example: http://127.0.0.1:8000/api/votes?page=5
-                  path:
-                    type: string
-                    example: http://127.0.0.1:8000/api/votes?page=2
                   per_page:
-                    type: integer
-                    example: 2
-                  to:
                     type: integer
                     example: 2
                   total:
@@ -110,7 +86,7 @@ get:
                     example: 100
               message:
                 type: string
-                example: success
+                example: null
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

@@ -25,7 +25,7 @@ class VoteController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess($result['data'], Constant::SUCCESS);
+        return $this->sendSuccess($result['data']);
     }
 
     public function updateVoteTitle(UpdateTitleRequest $request, $id)
@@ -35,7 +35,7 @@ class VoteController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function addOptions(AddOptionRequest $request, $id)
@@ -45,7 +45,7 @@ class VoteController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function listVotes(Request $request)
@@ -55,6 +55,6 @@ class VoteController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess($result['data'], Constant::SUCCESS);
+        return $this->sendSuccess($result['data']);
     }
 }

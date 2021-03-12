@@ -28,7 +28,7 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function register(UserRegisterRequest $request)
@@ -39,7 +39,7 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function createVote(CreateVoteRequest $request)
@@ -50,7 +50,7 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function upVote(UpVoteRequest $request)
@@ -61,7 +61,7 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function deleteVote($id)
@@ -72,7 +72,7 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function listVote(Request $request)
@@ -83,7 +83,7 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
         }
 
-        return $this->sendSuccess($result['data'], Constant::SUCCESS);
+        return $this->sendSuccess($result['data']);
     }
 
     public function listVoteOfUser(Request $request, $id)
@@ -94,7 +94,7 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
         }
 
-        return $this->sendSuccess($result['data'], Constant::SUCCESS);
+        return $this->sendSuccess($result['data']);
     }
 
     public function unUpVote(UnUpVote $request)
@@ -104,6 +104,6 @@ class UserController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000, $result['message']);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 }

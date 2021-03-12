@@ -20,7 +20,7 @@ responses:
         examples:
           data:
             data: ''
-            message: success
+            message: null
   500:
     description: Server error
     $ref: ../common/ServerError.yaml

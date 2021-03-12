@@ -62,6 +62,8 @@ get:
                         qty:
                           type: integer
                           example: 4
+              message:
+                example: null
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

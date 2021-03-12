@@ -25,7 +25,7 @@ class OptionController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 
     public function deleteOption($id)
@@ -35,6 +35,6 @@ class OptionController extends ApiController
             return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
         }
 
-        return $this->sendSuccess(null, Constant::SUCCESS);
+        return $this->sendSuccess();
     }
 }

@@ -32,7 +32,7 @@ post:
           examples:
             data:
               data: ''
-              message: success
+              message: null
     422:
       description: The request was well-formed
       content:

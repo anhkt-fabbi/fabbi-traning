@@ -22,7 +22,7 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
     {
         $data = $this->model->with(['user:id,full_name,email','options' => function ($q) {
             $q->with('users:id,full_name,email')->get();
-        }])->where('id', $id)->get();
+        }])->where('id', $id)->first();
 
         return [
             'success' => true,

@@ -21,8 +21,8 @@ delete:
             type: object
           examples:
             data:
-              data: ''
-              message: success
+              data: null
+              message: null
     404:
       description: page not found
     500:

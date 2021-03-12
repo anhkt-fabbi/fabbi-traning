@@ -26,5 +26,10 @@ class Option extends Model
         return $this->belongsToMany(User::class, 'option_users');
     }
 
+    public function listUpVote()
+    {
+        return $this->users();
+    }
+
     public $timestamps = false;
 }

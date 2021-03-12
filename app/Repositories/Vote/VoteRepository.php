@@ -20,8 +20,8 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
 
     public function show($id)
     {
-        $data = $this->model->with(['user:id,full_name,email','options' => function ($q) {
-            $q->with('users:id,full_name,email')->get();
+        $data = $this->model->with(['owner:id,full_name,email','options' => function ($q) {
+            $q->with('listUpVote:id,full_name,email');
         }])->where('id', $id)->first();
 
         return [
@@ -95,7 +95,7 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
     {
         $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
         $votes = $this->model->with(['user:id,full_name,email', 'options' => function($q) {
-            $q->with('users:id,full_name,email');
+            $q->with('listUpVote:id,full_name,email');
         }]);
 
         if (!empty($request['title'])) {

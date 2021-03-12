@@ -38,7 +38,7 @@ get:
                         title:
                           type: string
                           example: Đi đá bóng
-                        user:
+                        owner:
                           type: object
                           properties:
                             id:
@@ -64,7 +64,7 @@ get:
                               option:
                                 type: string
                                 example: 7h thứ 3 ở cà mau
-                              users:
+                              list_up_vote:
                                 type: array
                                 items:
                                   type: object
@@ -78,9 +78,6 @@ get:
                                     email:
                                       type: string
                                       example: admin@gmail.com
-                  per_page:
-                    type: integer
-                    example: 2
                   total:
                     type: integer
                     example: 100

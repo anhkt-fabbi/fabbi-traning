@@ -25,4 +25,9 @@ class Vote extends Model
     {
         return $this->hasMany(\App\Models\Option::class);
     }
+
+    public function owner()
+    {
+        return $this->user();
+    }
 }

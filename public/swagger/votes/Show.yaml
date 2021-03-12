@@ -28,6 +28,12 @@ get:
                   title:
                     type: string
                     example: Đi đá bóng
+                  created_at:
+                    type: string
+                    example: "2021-03-12T01:07:53.000000Z"
+                  updated_at:
+                    type: string
+                    example: "2021-03-12T01:07:53.000000Z"
                   owner:
                     type: object
                     properties:

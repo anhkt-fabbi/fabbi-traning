@@ -18,7 +18,10 @@ paths:
     $ref: users/ChangePassword.yaml
   /users/create-vote:
     $ref: users/CreateVote.yaml
-
+  /users/up-vote:
+    $ref: users/UpVote.yaml
+  /users/offer-vote:
+    $ref: users/OfferVote.yaml
   /users/delete-vote/{id}:
     $ref: users/DeleteVote.yaml
   /users/list-votes:

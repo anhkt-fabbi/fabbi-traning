@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::post('change-password', [UserController::class, 'changePassword']);
         Route::post('create-vote', [UserController::class, 'createVote']);
+        Route::post('offer-vote', [UserController::class, 'offerVote']);
         Route::post('up-vote', [UserController::class, 'upVote']);
         Route::delete('delete-vote/{id}', [UserController::class, 'deleteVote']);
         Route::get('list-votes', [UserController::class, 'listVote']);

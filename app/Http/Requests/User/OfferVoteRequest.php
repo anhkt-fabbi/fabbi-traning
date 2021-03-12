@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpVoteRequest extends FormRequest
+class OfferVoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class UpVoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'optionId' => 'required|integer',
-            'voteId' => 'required|integer'
+            'options' => 'required|array',
+            'options.*' => 'required|string'
         ];
     }
 }

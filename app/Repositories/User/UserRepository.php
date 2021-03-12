@@ -100,35 +100,61 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         }
     }
 
-    public function upVote($data)
+    public function offerVote($request)
     {
-        $options = $data->optionsId;
-        $user = JWTAuth::user();
-        $customOptions = $data->customOptions;
-        $voteId = $data->voteId;
+        $voteId = $request->voteId;
+        $options = $request->options;
 
-        DB::beginTransaction();
         try {
-            if (!is_null($customOptions)) {
-                foreach ($customOptions as $customOption) {
-                    $option = Option::create(
-                        [
-                            'vote_id' => $voteId,
-                            'title' => $customOption
-                        ]
-                    );
-                    array_push($options, $option->id);
+            $vote = Vote::findOrFail($voteId);
+            if ($vote) {
+                $insertOptions = [];
+                foreach ($options as $option) {
+                    $insertOptions[] = [
+                        'vote_id' => $voteId,
+                        'title' => $option
+                    ];
                 }
-            }
-            $user->options()->attach($options);
+                DB::table('options')->insert($insertOptions);
 
-            DB::commit();
+                return [
+                    'success' => true
+                ];
+            }
+
             return [
-                'success' => true
+                'success' => false,
+                'message' => Constant::CLIENT_ERROR
             ];
         } catch (\Exception $exception) {
-            DB::rollBack();
+            return [
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
+        }
+    }
 
+    public function upVote($data)
+    {
+        $optionId = $data->optionId;
+        $user = JWTAuth::user();
+        $voteId = $data->voteId;
+
+        try {
+            $option = Option::findOrFail($optionId);
+            if ($option->vote->id == $voteId) {
+                $user->options()->sync($optionId);
+
+                return [
+                    'success' => true
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => Constant::CLIENT_ERROR
+            ];
+        } catch (\Exception $exception) {
             return [
                 'success' => false,
                 'message' => $exception->getMessage()
@@ -246,8 +272,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $optionId = $request->optionId;
 
         try {
-            DB::table('option_users')->where('user_id', $user->id)
-                ->where('option_id', $optionId)->delete();
+            $user->options()->detach($optionId);
 
             return [
                 'success' => true

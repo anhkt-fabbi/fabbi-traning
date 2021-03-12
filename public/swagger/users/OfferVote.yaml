@@ -3,7 +3,7 @@ post:
     - users
   security:
     - bearerAuth: []
-  summary: User up votes
+  summary: User offer votes
   requestBody:
     content:
       application/json:
@@ -11,9 +11,14 @@ post:
           type: object
           required: true
           properties:
-            optionsId:
-              type: integer
-              example: 5
+            options:
+              type: array
+              items:
+                type: string
+              example:
+                - 7h thứ 3 ở cà mau
+                - 6h thứ 3 ở sân bóng mĩ đình hà nội
+                - 8h thứ 3 sân nhổn đi
             voteId:
               type: integer
               example: 1
@@ -38,12 +43,12 @@ post:
               message: The given data was invalid
               errors:
                 options:
-                  - The options id field is required.
+                  - The options field is required.
                   - The options must be an array.
-                optionsId.0:
-                  - The options.0 must be a integer.
-                optionsId.1:
-                  - The options.1 must be a integer.
+                options.0:
+                  - The options.0 must be a string.
+                options.1:
+                  - The options.1 must be a string.
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

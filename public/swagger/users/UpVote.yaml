@@ -11,7 +11,7 @@ post:
           type: object
           required: true
           properties:
-            optionsId:
+            optionId:
               type: integer
               example: 5
             voteId:
@@ -37,13 +37,12 @@ post:
               code: 4220
               message: The given data was invalid
               errors:
-                options:
-                  - The options id field is required.
-                  - The options must be an array.
-                optionsId.0:
-                  - The options.0 must be a integer.
-                optionsId.1:
-                  - The options.1 must be a integer.
+                optionId:
+                  - The option id field is required.
+                  - The option must be an integer.
+                voteId:
+                  - The vote id field is required.
+                  - The vote id must be integer.
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

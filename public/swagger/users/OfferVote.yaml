@@ -49,6 +49,9 @@ post:
                   - The options.0 must be a string.
                 options.1:
                   - The options.1 must be a string.
+                voteId:
+                  - The vote id field is required.
+                  - The vote id must be integer.
     500:
       description: Server error
       $ref: ../common/ServerError.yaml

@@ -33,11 +33,11 @@ get:
                       type: object
                       properties:
                         id:
-                        type: integer
-                        example: 1
+                          type: integer
+                          example: 1
                         title:
                           type: string
-                          example: Đi đá bóng
+                          example: Đi đá bóng test
                         created_at:
                           type: string
                           example: "2021-03-12T01:07:53.000000Z"

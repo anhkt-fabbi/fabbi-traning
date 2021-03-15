@@ -251,7 +251,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         $user = $this->model->findOrFail($id);
 
         $data = Vote::with(['options' => function ($q) {
-            $q->withCount('users as qtyVote');
+            $q->with('listUpVote:id,full_name as fullName,email');
         }])->where('user_id', $user->id);
         if (!empty($request['title'])) {
             $data->where('title', 'like', $request['title']);

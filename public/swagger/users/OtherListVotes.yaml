@@ -75,9 +75,20 @@ get:
                               title:
                                 type: string
                                 example: 7h thứ 3 ở cà mau
-                              qtyVote:
-                                type: integer
-                                example: 4
+                              list_up_vote:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                      example: 1
+                                    fullName:
+                                      type: string
+                                      example: kieu tuan anh
+                                    email:
+                                      type: string
+                                      example: admin@gmail.com
               message:
                 type: string
                 example: null

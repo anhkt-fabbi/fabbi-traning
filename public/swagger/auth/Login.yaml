@@ -11,7 +11,7 @@ post:
             email:
               type: integer
               format: int64
-              example: example@gmail.com
+              example: admin@gmail.com
             password:
               type: string
               example: 12345678

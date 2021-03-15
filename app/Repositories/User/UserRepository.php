@@ -284,4 +284,14 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             ];
         }
     }
+
+    public function getAccount()
+    {
+        $user = JWTAuth::user();
+
+        return [
+            'success' => true,
+            'data' => $user
+        ];
+    }
 }

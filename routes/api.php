@@ -31,6 +31,7 @@ Route::group([
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::group(['prefix' => 'users'], function () {
+        Route::get('account', [UserController::class, 'getAccount']);
         Route::post('change-password', [UserController::class, 'changePassword']);
         Route::post('create-vote', [UserController::class, 'createVote']);
         Route::post('offer-vote', [UserController::class, 'offerVote']);

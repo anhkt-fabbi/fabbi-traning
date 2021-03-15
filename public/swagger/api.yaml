@@ -14,6 +14,8 @@ paths:
     $ref: auth/LoginSocial.yaml
   /auth/register:
     $ref: users/Register.yaml
+  /users/account:
+    $ref: users/Account.yaml
   /users/change-password:
     $ref: users/ChangePassword.yaml
   /users/create-vote:

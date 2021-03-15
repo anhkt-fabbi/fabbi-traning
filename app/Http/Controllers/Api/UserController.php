@@ -22,6 +22,16 @@ class UserController extends ApiController
         $this->userRepository = $userRepository;
     }
 
+    public function getAccount()
+    {
+        $result = $this->userRepository->getAccount();
+        if (!$result['success']) {
+            return $this->sendError(ErrorType::CODE_5000, ErrorType::STATUS_5000);
+        }
+
+        return $this->sendSuccess($result['data']);
+    }
+
     public function changePassword(ChangePasswordRequest $request)
     {
         $result = $this->userRepository->changePassword($request);

@@ -94,7 +94,7 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
     public function listVotes($request)
     {
         $perPage = $request->has('perPage') ? $request->perPage : Constant::PER_PAGE_DEFAULT;
-        $votes = $this->model->with(['user:id,full_name,email', 'options' => function($q) {
+        $votes = $this->model->with(['owner:id,full_name,email', 'options' => function($q) {
             $q->with('listUpVote:id,full_name,email');
         }]);
 
@@ -102,7 +102,7 @@ class VoteRepository extends RepositoryAbstract implements VoteRepositoryInterfa
             $votes->where('title', 'LIKE', '%' . $request['title'] . '%');
         }
 
-        $data = $votes->paginate($perPage)->toArray();
+        $data = $votes->orderBy('id', 'desc')->paginate($perPage)->toArray();
         $listVotes = $data['data'];
         unset($data['data']);
         $data['listVotes'] = $listVotes;

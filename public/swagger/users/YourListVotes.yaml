@@ -53,6 +53,9 @@ get:
                         title:
                           type: string
                           example: Đi đá bóng
+                        total:
+                          type: string
+                          example: 6
                         id:
                           type: integer
                           example: 1

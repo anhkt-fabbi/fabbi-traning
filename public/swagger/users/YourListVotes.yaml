@@ -46,50 +46,53 @@ get:
                         type: string
                         example: "2021-03-10 02:06:21"
                   votes:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        title:
-                          type: string
-                          example: Đi đá bóng
-                        total:
-                          type: string
-                          example: 6
-                        id:
-                          type: integer
-                          example: 1
-                        created_at:
-                          type: string
-                          example: "2021-03-12T01:07:53.000000Z"
-                        updated_at:
-                          type: string
-                          example: "2021-03-12T01:07:53.000000Z"
-                        options:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              id:
-                                type: integer
-                                example: 1
-                              title:
-                                type: string
-                                example: 7h thứ 3 ở cà mau
-                              list_up_vote:
-                                type: array
-                                items:
-                                  type: object
-                                  properties:
-                                    id:
-                                      type: integer
-                                      example: 1
-                                    fullName:
-                                      type: string
-                                      example: kieu tuan anh
-                                    email:
-                                      type: string
-                                      example: admin@gmail.com
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                              example: Đi đá bóng
+                            total:
+                              type: string
+                              example: 6
+                            id:
+                              type: integer
+                              example: 1
+                            created_at:
+                              type: string
+                              example: "2021-03-12T01:07:53.000000Z"
+                            updated_at:
+                              type: string
+                              example: "2021-03-12T01:07:53.000000Z"
+                            options:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 1
+                                  title:
+                                    type: string
+                                    example: 7h thứ 3 ở cà mau
+                                  list_up_vote:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: integer
+                                          example: 1
+                                        fullName:
+                                          type: string
+                                          example: kieu tuan anh
+                                        email:
+                                          type: string
+                                          example: admin@gmail.com
               message:
                 example: null
     500:

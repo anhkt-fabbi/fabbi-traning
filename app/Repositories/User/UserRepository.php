@@ -143,7 +143,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
         try {
             $option = Option::findOrFail($optionId);
             if ($option->vote->id == $voteId) {
-                $user->options()->sync($optionId);
+                $user->options()->attach($optionId);
 
                 return [
                     'success' => true

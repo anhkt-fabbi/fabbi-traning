@@ -240,7 +240,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             'success' => true,
             'data' => [
                 'owner' => $user,
-                'votes' => $data->orderBy('id', 'desc')->take($perPage)->get()
+                'votes' => $data->orderBy('id', 'desc')->paginate($perPage)
             ]
         ];
     }
@@ -261,7 +261,7 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
             'success' => true,
             'data' => [
                 'owner' => $user,
-                'votes' => $data->orderBy('id', 'desc')->take($perPage)->get()
+                'votes' => $data->orderBy('id', 'desc')->paginate($perPage)
             ]
         ];
     }

@@ -142,7 +142,10 @@ class UserRepository extends RepositoryAbstract implements UserRepositoryInterfa
 
         try {
             $option = Option::findOrFail($optionId);
-            if ($option->vote->id == $voteId) {
+            $optionUser = DB::table('option_users')
+                ->where('user_id', $user->id)
+                ->where('option_id', $optionId)->first();
+            if ($option->vote->id == $voteId && $optionUser == null) {
                 $user->options()->attach($optionId);
 
                 return [
